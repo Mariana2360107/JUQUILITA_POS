@@ -22,10 +22,11 @@ try {const formData = new FormData();
       ? 'ADMINISTRADOR'
       : 'CAJERO');
 
-  const response = await fetch(
-    'http://localhost/juquilita_api/login.php',
-    {method: 'POST',
-      body: formData});
+  // Ejemplo en tu Login.tsx despues de configurar el proxy en vite.config.ts
+const response = await fetch('/api/login.php', {
+  method: 'POST',
+  body: formData,
+});
 
   const data = await response.json();
   if (data.success) {

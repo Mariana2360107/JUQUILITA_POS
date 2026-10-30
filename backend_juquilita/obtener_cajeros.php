@@ -3,12 +3,7 @@
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
 
-$conn = mysqli_connect(
-    "localhost",
-    "root",
-    "",
-    "juquilita_puntodeventa"
-);
+require_once 'conexion.php';
 
 if (!$conn) {
     die(json_encode([

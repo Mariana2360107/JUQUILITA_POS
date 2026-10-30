@@ -5,12 +5,7 @@ header("Access-Control-Allow-Headers: *");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Content-Type: application/json");
 
-$conn = mysqli_connect(
-    "localhost",
-    "root",
-    "",
-    "juquilita_puntodeventa"
-);
+require_once 'conexion.php';
 
 if (!$conn) {
     die(json_encode([
