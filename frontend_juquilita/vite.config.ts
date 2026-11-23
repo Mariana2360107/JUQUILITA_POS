@@ -35,7 +35,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost/JUQUILITA_POS/backend_juquilita',
+        target: 'http://localhost/JUQUILITA_POS/juquilita_api',
         changeOrigin: true,
         rewrite: (pathStr) => pathStr.replace(/^\/api/, ''),
       },

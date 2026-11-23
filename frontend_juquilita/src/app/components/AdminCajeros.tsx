@@ -15,7 +15,7 @@ interface Cajero {
 export function AdminCajeros() {
   const [cajeros, setCajeros] = useState<Cajero[]>([]);
   useEffect(() => {
-  fetch('http://localhost/juquilita_api/obtener_cajeros.php')
+  fetch('/api/obtener_cajeros.php')
     .then(response => response.json())
     .then(data => {
       setCajeros(data);
@@ -60,14 +60,14 @@ const handleEdit = (cajero: Cajero) => {
   if (confirm('¿Está seguro de eliminar este cajero?')) {
     const form = new FormData();
     form.append('id', id.toString());
-    fetch('http://localhost/juquilita_api/eliminar_cajero.php', {
+    fetch('/api/eliminar_cajero.php', {
       method: 'POST',
       body: form
     })
     .then(response => response.json())
     .then(data => {
       if (data.success) {
-        fetch('http://localhost/juquilita_api/obtener_cajeros.php')
+        fetch('/api/obtener_cajeros.php')
           .then(response => response.json())
           .then(data => {
             setCajeros(data);
@@ -91,7 +91,7 @@ const handleEdit = (cajero: Cajero) => {
   const form = new FormData();
   form.append('id', cajero.id.toString());
   form.append('password', nuevaPassword);
-  fetch('http://localhost/juquilita_api/cambiar_password.php', {
+  fetch('/api/cambiar_password.php', {
     method: 'POST',
     body: form
   })
@@ -117,7 +117,7 @@ const handleEdit = (cajero: Cajero) => {
   form.append('telefono', formData.telefono);
   form.append('turno', formData.turno);
 
-  fetch('http://localhost/juquilita_api/actualizar_cajero.php', {
+  fetch('/api/actualizar_cajero.php', {
     method: 'POST',
     body: form
   })
@@ -126,7 +126,7 @@ const handleEdit = (cajero: Cajero) => {
 
     if (data.success) {
 
-      fetch('http://localhost/juquilita_api/obtener_cajeros.php')
+      fetch('/api/obtener_cajeros.php')
         .then(response => response.json())
         .then(data => {
           setCajeros(data);
@@ -154,14 +154,14 @@ form.append('telefono', formData.telefono);
 form.append('turno', formData.turno);
 form.append('password', formData.password);
 
-fetch('http://localhost/juquilita_api/crear_cajero.php', {
+fetch('/api/crear_cajero.php', {
   method: 'POST',
   body: form
 })
 .then(response => response.json())
 .then(data => {
   if (data.success) {
-    fetch('http://localhost/juquilita_api/obtener_cajeros.php')
+    fetch('/api/obtener_cajeros.php')
       .then(response => response.json())
       .then(data => {
         setCajeros(data);

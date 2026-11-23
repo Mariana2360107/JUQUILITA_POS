@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Plus, Edit, Trash2, Search } from 'lucide-react';
+import { Plus, Edit, Trash2, Search, Power } from 'lucide-react';
 
 interface Producto {
   id: number;
@@ -9,8 +9,12 @@ interface Producto {
   stock: number;
   codigo: string;}
 
+interface ProductoConEstado extends Producto {
+  activo?: boolean | number | string;
+}
+
 export function InventarioManager() {
-  const [productos, setProductos] = useState<Producto[]>([]);
+  const [productos, setProductos] = useState<ProductoConEstado[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Producto | null>(null);
@@ -21,7 +25,7 @@ export function InventarioManager() {
     stock: '',
     codigo: '' });
 
-  useEffect(() => { fetch('http://localhost/juquilita_api/obtener_productos.php')
+  useEffect(() => { fetch('/api/obtener_productos.php')
     .then(response => response.json())
     .then(data => {
       console.log(data);
@@ -33,33 +37,56 @@ export function InventarioManager() {
     p.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
     p.codigo.toLowerCase().includes(searchTerm.toLowerCase()) );
 
+  const sortedProducts = [...filteredProducts].sort((a, b) =>
+    String(a.codigo).localeCompare(String(b.codigo), undefined, {
+      numeric: true,
+      sensitivity: 'base'
+    })
+  );
+
+  const isActive = (producto: ProductoConEstado) => {
+    if (producto.activo === undefined || producto.activo === null) return true;
+    if (typeof producto.activo === 'boolean') return producto.activo;
+    if (typeof producto.activo === 'number') return producto.activo === 1;
+    return ['1', 'true', 'activo', 'active'].includes(producto.activo.toLowerCase());
+  };
+
+  const productosDisponibles = sortedProducts.filter(
+    producto => isActive(producto) && Number(producto.stock) > 0
+  );
+  const productosNoDisponibles = sortedProducts.filter(
+    producto => !isActive(producto) || Number(producto.stock) <= 0
+  );
+
   const handleAdd = () => {
     setEditingProduct(null);
     setFormData({ nombre: '', categoria: '', precio: '', stock: '', codigo: '' });
     setShowModal(true); };
 
-  const handleEdit = (producto: Producto) => {
-    setEditingProduct(producto);
-    setFormData({
-      nombre: producto.nombre,
-      categoria: producto.categoria,
-      precio: producto.precio.toString(),
-      stock: producto.stock.toString(),
-      codigo: producto.codigo
-   });   setShowModal(true); };
+const handleEdit = (producto: Producto) => {
+  setEditingProduct(producto);
+  setFormData({
+    nombre: producto.nombre,
+    categoria: producto.categoria,
+    precio: producto.precio.toString(),
+    stock: producto.stock.toString(),
+    codigo: producto.codigo
+  });
+  setShowModal(true);
+};
 
   const handleDelete = (id: number) => {
   if (confirm('¿Está seguro de eliminar este producto?')) {
     const form = new FormData();
     form.append('id', id.toString());
-    fetch('http://localhost/juquilita_api/eliminar_producto.php', {
+    fetch('/api/eliminar_producto.php', {
       method: 'POST',
       body: form   })
     .then(response => response.json())
     .then(data => {
       console.log(data);
       if (data.success) {
-        fetch('http://localhost/juquilita_api/obtener_productos.php')
+        fetch('/api/obtener_productos.php')
           .then(response => response.json())
           .then(productosActualizados => {
             setProductos(productosActualizados);      });
@@ -67,6 +94,27 @@ export function InventarioManager() {
         alert(data.message);      }   })
     .catch(error => {
       console.error(error);    });  }  };
+
+      const handleActivate = async (id: number) => {
+  if (!confirm('¿Está seguro de que desea activar este producto?')) {
+    return; }
+  try {
+    const formData = new FormData();
+    formData.append('id', id.toString());
+    const response = await fetch(
+      '/api/activar_producto.php',
+      { method: 'POST', body: formData, }    );
+    const data = await response.json();
+    if (data.success) {
+      const res = await fetch(
+        '/api/obtener_productos.php'      );
+      const productosData = await res.json();
+      setProductos(productosData);
+    } else {
+      alert(data.message);
+    }
+  } catch (error) {
+    console.error('Error al activar producto:', error);  }};
 
   const handleSubmit = (e: React.FormEvent) => {
      e.preventDefault();
@@ -78,9 +126,8 @@ form.append('codigo', formData.codigo);
 form.append('nombre', formData.nombre);
 form.append('categoria', formData.categoria);
 form.append('precio', formData.precio);
-form.append('stock', formData.stock);
 
-fetch('http://localhost/juquilita_api/actualizar_producto.php', {
+fetch('/api/actualizar_producto.php', {
   method: 'POST',
   body: form
 })
@@ -91,7 +138,7 @@ fetch('http://localhost/juquilita_api/actualizar_producto.php', {
 
   if (data.success) {
 
-    fetch('http://localhost/juquilita_api/obtener_productos.php')
+    fetch('/api/obtener_productos.php')
       .then(response => response.json())
       .then(productosActualizados => {
 
@@ -120,7 +167,7 @@ fetch('http://localhost/juquilita_api/actualizar_producto.php', {
     form.append('precio', formData.precio);
     form.append('stock', formData.stock);
 
-    fetch('http://localhost/juquilita_api/crear_producto.php', {
+    fetch('/api/crear_producto.php', {
       method: 'POST',
       body: form
     })
@@ -129,7 +176,7 @@ fetch('http://localhost/juquilita_api/actualizar_producto.php', {
       console.log(data);
       if (data.success) {
 
-        fetch('http://localhost/juquilita_api/obtener_productos.php')
+        fetch('/api/obtener_productos.php')
           .then(response => response.json())
           .then(productosActualizados => {
             setProductos(productosActualizados);
@@ -176,6 +223,9 @@ fetch('http://localhost/juquilita_api/actualizar_producto.php', {
 
       {/* Tabla de productos */}
       <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+        <div className="px-6 py-4 border-b" style={{ borderColor: '#FFE0B2' }}>
+          <h3 className="text-xl" style={{ color: '#FF8C42' }}>Productos disponibles</h3>
+        </div>
         <table className="w-full">
           <thead style={{ backgroundColor: '#FF8C42' }}>
             <tr>
@@ -188,7 +238,7 @@ fetch('http://localhost/juquilita_api/actualizar_producto.php', {
             </tr>
           </thead>
           <tbody>
-            {filteredProducts.map((producto, index) => (
+            {productosDisponibles.map((producto, index) => (
               <tr
                 key={producto.id}
                 className={index % 2 === 0 ? '' : ''}
@@ -221,6 +271,59 @@ fetch('http://localhost/juquilita_api/actualizar_producto.php', {
                       className="p-2 bg-red-500 text-white rounded-lg transition-all hover:opacity-80"
                     >
                       <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="bg-white rounded-xl shadow-lg overflow-hidden mt-8">
+        <div className="px-6 py-4 border-b" style={{ borderColor: '#FFE0B2' }}>
+          <h3 className="text-xl" style={{ color: '#FF8C42' }}>Productos desactivados o sin stock</h3>
+        </div>
+        <table className="w-full">
+          <thead style={{ backgroundColor: '#FF8C42' }}>
+            <tr>
+              <th className="px-6 py-4 text-left text-white">Código</th>
+              <th className="px-6 py-4 text-left text-white">Nombre</th>
+              <th className="px-6 py-4 text-left text-white">Categorí­a</th>
+              <th className="px-6 py-4 text-left text-white">Precio</th>
+              <th className="px-6 py-4 text-left text-white">Stock</th>
+              <th className="px-6 py-4 text-left text-white">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {productosNoDisponibles.map((producto, index) => (
+              <tr
+                key={producto.id}
+                style={index % 2 === 0 ? {} : { backgroundColor: '#FFF8F0' }}
+              >
+                <td className="px-6 py-4">{producto.codigo}</td>
+                <td className="px-6 py-4">{producto.nombre}</td>
+                <td className="px-6 py-4">{producto.categoria}</td>
+                <td className="px-6 py-4">${Number(producto.precio).toFixed(2)}</td>
+                <td className="px-6 py-4">
+                  <span className="px-3 py-1 rounded-full text-sm bg-red-100 text-red-700">
+                    {producto.stock} unidades
+                  </span>
+                </td>
+                <td className="px-6 py-4">
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => handleEdit(producto)}
+                      className="p-2 rounded-lg transition-all hover:opacity-80"
+                      style={{ backgroundColor: '#FFD166' }}
+                    >
+                      <Edit className="w-4 h-4" />
+                    </button>
+                    <button
+                        onClick={() => handleActivate(producto.id)}
+                        className="p-2 bg-green-500 text-white rounded-lg transition-all hover:opacity-80"
+                        title="Activar producto">
+                        <Power className="w-4 h-4" />
                     </button>
                   </div>
                 </td>
@@ -288,17 +391,19 @@ fetch('http://localhost/juquilita_api/actualizar_producto.php', {
                 />
               </div>
 
-              <div>
-                <label className="block text-sm mb-2">Stock</label>
-                <input
-                  type="number"
-                  value={formData.stock}
-                  onChange={(e) => setFormData({ ...formData, stock: e.target.value })}
-                  className="w-full px-4 py-2 rounded-lg border-2"
-                  style={{ borderColor: '#FFE0B2' }}
-                  required
-                />
-              </div>
+              {!editingProduct && (
+               <div>
+               <label className="block text-sm mb-2">Stock</label>
+               <input
+                 type="number"
+                 value={formData.stock}
+                 onChange={(e) => setFormData({ ...formData, stock: e.target.value })}
+                 className="w-full px-4 py-2 rounded-lg border-2"
+                 style={{ borderColor: '#FFE0B2' }}
+                 required
+               />
+             </div>
+           )}   
 
               <div className="flex gap-3 pt-4">
                 <button

@@ -28,7 +28,7 @@ export function RegistroVentas({ username }: RegistroVentasProps) {
 
   const [cantidad, setCantidad] = useState(1);
   useEffect(() => {
-  fetch('http://localhost/juquilita_api/obtener_productos.php')
+  fetch('/api/obtener_productos.php')
     .then(response => response.json())
     .then(data => {
       setProductos(data);
@@ -43,32 +43,59 @@ export function RegistroVentas({ username }: RegistroVentasProps) {
     p.codigo.toLowerCase().includes(busqueda.toLowerCase())
   );
 
-  const agregarAlCarrito = () => {
-    if (!productoSeleccionado) return;
+const agregarAlCarrito = () => {
+  if (!productoSeleccionado) return;
 
-    const itemExistente = carrito.find(item => item.producto.id === productoSeleccionado.id);
+  // Validar que la cantidad sea un número entero positivo
+  if (!Number.isInteger(cantidad) || cantidad <= 0) {
+    alert('Ingresa una cantidad válida.');
+    return;
+  }
 
-    if (itemExistente) {
-      setCarrito(carrito.map(item =>
-        item.producto.id === productoSeleccionado.id
-          ? { ...item, cantidad: item.cantidad + cantidad, subtotal: (item.cantidad + cantidad) * item.producto.precio }
-          : item
-      ));
-    } else {
-      setCarrito([
-        ...carrito,
-        {
-          producto: productoSeleccionado,
-          cantidad,
-          subtotal: productoSeleccionado.precio * cantidad
-        }
-      ]);
-    }
+  // Consultar si el producto ya existe en el carrito
+  const itemExistente = carrito.find(
+    item => item.producto.id === productoSeleccionado.id
+  );
 
-    setProductoSeleccionado(null);
-    setCantidad(1);
-    setBusqueda('');
-  };
+  // Calcular la cantidad acumulada que se desea vender
+  const cantidadTotal = itemExistente
+    ? itemExistente.cantidad + cantidad
+    : cantidad;
+
+  // Validar contra el stock disponible
+  if (cantidadTotal > Number(productoSeleccionado.stock)) {
+    alert(
+      `Stock insuficiente. Disponibles: ${productoSeleccionado.stock} unidades.`
+    );
+    return;
+  }
+
+  // Agregar o actualizar el producto en el carrito
+  if (itemExistente) {
+    setCarrito(carrito.map(item =>
+      item.producto.id === productoSeleccionado.id
+        ? {
+            ...item,
+            cantidad: cantidadTotal,
+            subtotal: cantidadTotal * item.producto.precio
+          }
+        : item
+    ));
+  } else {
+    setCarrito([
+      ...carrito,
+      {
+        producto: productoSeleccionado,
+        cantidad,
+        subtotal: productoSeleccionado.precio * cantidad
+      }
+    ]);
+  }
+
+  setProductoSeleccionado(null);
+  setCantidad(1);
+  setBusqueda('');
+};
 
   const eliminarDelCarrito = (productoId: number) => {
     setCarrito(carrito.filter(item => item.producto.id !== productoId));
@@ -80,7 +107,7 @@ export function RegistroVentas({ username }: RegistroVentasProps) {
     if (carrito.length === 0) {
     alert('El carrito está vacío');
     return;}
-  fetch('http://localhost/juquilita_api/registrar_venta.php', {
+  fetch('/api/registrar_venta.php', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'},
@@ -94,13 +121,13 @@ export function RegistroVentas({ username }: RegistroVentasProps) {
     if (data.success) {
       alert(`Venta registrada correctamente\nTotal: $${total.toFixed(2)}`);
       setCarrito([]);
-      fetch('http://localhost/juquilita_api/obtener_productos.php')
+      fetch('/api/obtener_productos.php')
         .then(response => response.json())
         .then(productosActualizados => {
           setProductos(productosActualizados);
         });
     } else {
-      alert('Error al registrar venta'); } })
+      alert(data.error || 'No fue posible registrar la venta.'); } })
   .catch(error => {
     console.error(error);  });};
     
@@ -194,13 +221,19 @@ export function RegistroVentas({ username }: RegistroVentasProps) {
                 <input
                   type="number"
                   min="1"
+                  step="1"
                   value={cantidad}
+                  autoFocus
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      agregarAlCarrito();
+                    }
+                  }}
                   onChange={(e) => {
-                    const valor = Number(e.target.value);
-                    if (valor >= 1) {
-                      setCantidad(valor);        }      }}
-                  className="w-full px-4 py-2 rounded-lg border-2"
-                  style={{ borderColor: '#FFE0B2' }}
+                  const valor = Number(e.target.value);
+                    if (Number.isInteger(valor) && valor >= 1) {
+                      setCantidad(valor);}}}
                 />
               </div>
               <button
@@ -289,15 +322,6 @@ export function RegistroVentas({ username }: RegistroVentasProps) {
               ${total.toFixed(2)}
             </span>
           </div>
-          <div className="flex justify-between">
-
-            <span className="text-gray-600">
-              IVA (16%):
-            </span>
-            <span className="font-medium">
-              ${(total * 0.16).toFixed(2)}
-            </span>
-          </div>
           <div
             className="h-px"
             style={{ backgroundColor: '#FFE0B2' }}
@@ -311,7 +335,7 @@ export function RegistroVentas({ username }: RegistroVentasProps) {
               className="font-bold"
               style={{ color: '#FF8C42' }}
             >
-              ${(total * 1.16).toFixed(2)}
+              ${total.toFixed(2)}
             </span>
           </div>
         </div>

@@ -16,7 +16,7 @@ export function ReportesVentas() {
     const consultarReportes = () => {
 
   fetch(
-    `http://localhost/juquilita_api/obtener_reportes.php?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`
+    `/api/obtener_reportes.php?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`
   )
     .then(response => response.json())
     .then(data => {
@@ -48,7 +48,7 @@ useEffect(() => {
 
   const handleExportar = () => {
   window.open(
-    `http://localhost/juquilita_api/exportar_reporte.php?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`,
+    `/api/exportar_reporte.php?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`,
     '_blank'
   );
 

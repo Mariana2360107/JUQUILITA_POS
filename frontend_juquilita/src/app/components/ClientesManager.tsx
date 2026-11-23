@@ -25,7 +25,7 @@ const [formData, setFormData] = useState({
 });
 
   useEffect(() => {
-    fetch('http://localhost/juquilita_api/obtener_clientes.php')
+    fetch('/api/obtener_clientes.php')
       .then(response => response.json())
       .then(data => {
         console.log(data);
@@ -54,8 +54,8 @@ const handleSubmit = (e: React.FormEvent) => {
 
   fetch(
   editingCliente
-    ? 'http://localhost/juquilita_api/editar_cliente.php'
-    : 'http://localhost/juquilita_api/crear_cliente.php',
+    ? '/api/editar_cliente.php'
+    : '/api/crear_cliente.php',
  {
 
     method: 'POST',
@@ -82,7 +82,7 @@ const handleSubmit = (e: React.FormEvent) => {
         correo: ''
       });
 
-      fetch('http://localhost/juquilita_api/obtener_clientes.php')
+      fetch('/api/obtener_clientes.php')
         .then(response => response.json())
         .then(clientesActualizados => {
 
@@ -116,7 +116,7 @@ const handleDelete = (id: number) => {
   form.append('id', id.toString());
 
   fetch(
-    'http://localhost/juquilita_api/eliminar_cliente.php',
+    '/api/eliminar_cliente.php',
     {
       method: 'POST',
       body: form
@@ -131,7 +131,7 @@ const handleDelete = (id: number) => {
 
       alert('Cliente eliminado');
 
-      fetch('http://localhost/juquilita_api/obtener_clientes.php')
+      fetch('/api/obtener_clientes.php')
         .then(response => response.json())
         .then(clientesActualizados => {
 

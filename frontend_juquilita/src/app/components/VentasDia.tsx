@@ -13,7 +13,7 @@ export function VentasDia() {
  const [ventas, setVentas] = useState<Venta[]>([]);
   useEffect(() => {
 
-  fetch('http://localhost/juquilita_api/obtener_ventas_dia.php')
+  fetch('/api/obtener_ventas_dia.php')
     .then(response => response.json())
     .then(data => {
 

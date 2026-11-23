@@ -29,7 +29,7 @@ export function AdminDashboard({ username, onLogout }: AdminDashboardProps) {
   const formData = new FormData();
   formData.append('foto', file);
   formData.append('username', username);
-  fetch('http://localhost/juquilita_api/subir_foto.php', {
+  fetch('/api/subir_foto.php', {
     method: 'POST',
     body: formData
   })
@@ -38,7 +38,7 @@ export function AdminDashboard({ username, onLogout }: AdminDashboardProps) {
       console.log(data);
       if (data.success) {
         setProfileImage(
-          `http://localhost/juquilita_api/${data.ruta}`
+          `/api/${data.ruta}`
         );
         alert('Foto subida correctamente');
       } else {

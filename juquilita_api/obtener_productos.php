@@ -5,7 +5,11 @@ header("Access-Control-Allow-Headers: *");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Content-Type: application/json");
 
-require_once 'conexion.php';
+$conn = mysqli_connect(
+    "localhost",
+    "root",
+    "",
+    "juquilita_puntodeventa");
 
 if (!$conn) {
     die(json_encode([
@@ -18,9 +22,9 @@ $sql = "SELECT
             nombre_producto,
             categoria,
             precio_unitario,
-            stock
+            stock,
+            activo
         FROM productos
-        WHERE activo = 1
         ORDER BY nombre_producto";
 
 $resultado = mysqli_query($conn, $sql);
@@ -34,6 +38,7 @@ while ($fila = mysqli_fetch_assoc($resultado)) {
         "nombre" => $fila["nombre_producto"],
         "categoria" => $fila["categoria"],
         "precio" => (float)$fila["precio_unitario"],
-        "stock" => (int)$fila["stock"]   ];}
+        "stock" => (int)$fila["stock"],
+        "activo" => (int)$fila["activo"]   ];}
 
 echo json_encode($productos);

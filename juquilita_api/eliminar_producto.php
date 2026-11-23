@@ -5,7 +5,12 @@ header("Access-Control-Allow-Headers: *");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Content-Type: application/json");
 
-require_once 'conexion.php';
+$conn = mysqli_connect(
+    "localhost",
+    "root",
+    "",
+    "juquilita_puntodeventa"
+);
 
 if (!$conn) {
     die(json_encode([
@@ -16,9 +21,9 @@ if (!$conn) {
 
 $id = $_POST['id'] ?? '';
 
-$sql = "DELETE FROM empleados
-        WHERE id_empleado = ?
-        AND rol = 'CAJERO'";
+$sql = "UPDATE productos
+        SET activo = 0
+        WHERE id_producto = ?";
 
 $stmt = mysqli_prepare($conn, $sql);
 
@@ -34,13 +39,13 @@ if ($resultado) {
 
     echo json_encode([
         "success" => true,
-        "message" => "Cajero eliminado"
+        "message" => "Producto eliminado"
     ]);
 
 } else {
+
     echo json_encode([
         "success" => false,
         "message" => "Error al eliminar"
     ]);
-
 }

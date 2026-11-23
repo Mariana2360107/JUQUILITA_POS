@@ -5,7 +5,12 @@ header("Access-Control-Allow-Headers: *");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Content-Type: application/json");
 
-require_once 'conexion.php';
+$conn = mysqli_connect(
+    "localhost",
+    "root",
+    "",
+    "juquilita_puntodeventa"
+);
 
 if (!$conn) {
     die(json_encode([
@@ -15,31 +20,16 @@ if (!$conn) {
 }
 
 $id = $_POST['id'] ?? '';
-$codigo = $_POST['codigo'] ?? '';
-$nombre = $_POST['nombre'] ?? '';
-$categoria = $_POST['categoria'] ?? '';
-$precio = $_POST['precio'] ?? 0;
-$stock = $_POST['stock'] ?? 0;
 
-$sql = "UPDATE productos
-        SET
-            codigo_barras = ?,
-            nombre_producto = ?,
-            categoria = ?,
-            precio_unitario = ?,
-            stock = ?
-        WHERE id_producto = ?";
+$sql = "DELETE FROM empleados
+        WHERE id_empleado = ?
+        AND rol = 'CAJERO'";
 
 $stmt = mysqli_prepare($conn, $sql);
 
 mysqli_stmt_bind_param(
     $stmt,
-    "sssdii",
-    $codigo,
-    $nombre,
-    $categoria,
-    $precio,
-    $stock,
+    "i",
     $id
 );
 
@@ -49,13 +39,13 @@ if ($resultado) {
 
     echo json_encode([
         "success" => true,
-        "message" => "Producto actualizado"
+        "message" => "Cajero eliminado"
     ]);
 
 } else {
-
     echo json_encode([
         "success" => false,
-        "message" => "Error al actualizar"
+        "message" => "Error al eliminar"
     ]);
+
 }

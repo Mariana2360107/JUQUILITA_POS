@@ -24,7 +24,7 @@ export function Devoluciones() {
   const [productos, setProductos] = useState<any[]>([]);
  const [devoluciones, setDevoluciones] = useState<Devolucion[]>([]);
  useEffect(() => {
-  fetch('http://localhost/juquilita_api/obtener_devoluciones.php')
+  fetch('/api/obtener_devoluciones.php')
     .then(response => response.json())
     .then(data => {
       console.log(data);
@@ -36,7 +36,7 @@ export function Devoluciones() {
 }, []);
 
 useEffect(() => {
-  fetch('http://localhost/juquilita_api/obtener_productos.php')
+  fetch('/api/obtener_productos.php')
     .then(response => response.json())
     .then(data => {
       setProductos(data);
@@ -63,7 +63,7 @@ useEffect(() => {
   const handleSubmit = (e: React.FormEvent) => {
   e.preventDefault();
   fetch(
-    'http://localhost/juquilita_api/registrar_devolucion.php',
+    '/api/registrar_devolucion.php',
     { method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -90,7 +90,7 @@ useEffect(() => {
         motivo: '',
         tipo: 'devolucion'
       });
-      fetch('http://localhost/juquilita_api/obtener_devoluciones.php')
+      fetch('/api/obtener_devoluciones.php')
         .then(response => response.json())
         .then(devolucionesActualizadas => {
           setDevoluciones(devolucionesActualizadas);
