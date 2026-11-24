@@ -34,16 +34,16 @@ export function VentasDia() {
 
   return (
     <div>
-      <h2 className="text-3xl mb-6" style={{ color: '#FF8C42' }}>Ventas del Día</h2>
+      <h2 className="text-3xl mb-6" style={{ color: '#df7839' }}>Ventas del Día</h2>
 
       {/* Tarjetas de resumen */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
         <div className="bg-white rounded-xl shadow-lg p-6">
           <div className="flex items-center justify-between mb-2">
             <h4 className="text-sm text-gray-600">Total del Día</h4>
-            <DollarSign className="w-5 h-5" style={{ color: '#FF8C42' }} />
+            <DollarSign className="w-5 h-5" style={{ color: '#b08b05' }} />
           </div>
-          <p className="text-3xl" style={{ color: '#FF8C42' }}>
+          <p className="text-3xl" style={{ color: '#b08b05' }}>
             ${totalVentas.toFixed(2)}
           </p>
         </div>
@@ -51,9 +51,9 @@ export function VentasDia() {
         <div className="bg-white rounded-xl shadow-lg p-6">
           <div className="flex items-center justify-between mb-2">
             <h4 className="text-sm text-gray-600">Transacciones</h4>
-            <ShoppingBag className="w-5 h-5" style={{ color: '#FFD166' }} />
+            <ShoppingBag className="w-5 h-5" style={{ color: '#c79950' }} />
           </div>
-          <p className="text-3xl" style={{ color: '#FFD166' }}>
+          <p className="text-3xl" style={{ color: '#c79950' }}>
             {totalTransacciones}
           </p>
         </div>
@@ -71,7 +71,7 @@ export function VentasDia() {
 
       {/* Tabla de ventas */}
       <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-        <div className="px-6 py-4" style={{ backgroundColor: '#FFD166' }}>
+        <div className="px-6 py-4" style={{ backgroundColor: '#c79950' }}>
           <h3 className="text-xl text-gray-800">Detalle de Ventas</h3>
           <p className="text-sm text-gray-700">Fecha: {new Date().toLocaleDateString('es-MX')}</p>
         </div>
@@ -103,7 +103,7 @@ export function VentasDia() {
                   <td className="px-6 py-4">{venta.hora}</td>
                   <td className="px-6 py-4">{venta.items} productos</td>
                   <td className="px-6 py-4">
-                    <span className="font-medium" style={{ color: '#FF8C42' }}>
+                    <span className="font-medium" style={{ color: '#b08b05' }}>
                       ${venta.total.toFixed(2)}
                     </span>
                   </td>
@@ -116,7 +116,7 @@ export function VentasDia() {
         <div className="px-6 py-4 border-t" style={{ backgroundColor: '#FFF8F0' }}>
           <div className="flex justify-between items-center">
             <span className="text-lg font-medium">Total General:</span>
-            <span className="text-2xl font-bold" style={{ color: '#FF8C42' }}>
+            <span className="text-2xl font-bold" style={{ color: '#b08b05' }}>
               ${totalVentas.toFixed(2)}
             </span>
           </div>

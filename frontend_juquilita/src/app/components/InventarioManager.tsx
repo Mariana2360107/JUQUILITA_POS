@@ -195,11 +195,11 @@ fetch('/api/actualizar_producto.php', {
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-3xl" style={{ color: '#FF8C42' }}>Inventario</h2>
+        <h2 className="text-3xl" style={{ color: '#df7839' }}>Inventario</h2>
         <button
           onClick={handleAdd}
           className="px-6 py-3 rounded-lg text-white flex items-center gap-2 shadow-lg transition-all hover:opacity-90"
-          style={{ backgroundColor: '#FF8C42' }}
+          style={{ backgroundColor: '#b08b05' }}
         >
           <Plus className="w-5 h-5" />
           Agregar Producto
@@ -224,10 +224,10 @@ fetch('/api/actualizar_producto.php', {
       {/* Tabla de productos */}
       <div className="bg-white rounded-xl shadow-lg overflow-hidden">
         <div className="px-6 py-4 border-b" style={{ borderColor: '#FFE0B2' }}>
-          <h3 className="text-xl" style={{ color: '#FF8C42' }}>Productos disponibles</h3>
+          <h3 className="text-xl" style={{ color: '#b08b05' }}>Productos disponibles</h3>
         </div>
         <table className="w-full">
-          <thead style={{ backgroundColor: '#FF8C42' }}>
+          <thead style={{ backgroundColor: '#b08b05' }}>
             <tr>
               <th className="px-6 py-4 text-left text-white">Código</th>
               <th className="px-6 py-4 text-left text-white">Nombre</th>
@@ -262,7 +262,7 @@ fetch('/api/actualizar_producto.php', {
                     <button
                       onClick={() => handleEdit(producto)}
                       className="p-2 rounded-lg transition-all hover:opacity-80"
-                      style={{ backgroundColor: '#FFD166' }}
+                      style={{ backgroundColor: '#c79950' }}
                     >
                       <Edit className="w-4 h-4" />
                     </button>
@@ -282,10 +282,10 @@ fetch('/api/actualizar_producto.php', {
 
       <div className="bg-white rounded-xl shadow-lg overflow-hidden mt-8">
         <div className="px-6 py-4 border-b" style={{ borderColor: '#FFE0B2' }}>
-          <h3 className="text-xl" style={{ color: '#FF8C42' }}>Productos desactivados o sin stock</h3>
+          <h3 className="text-xl" style={{ color: '#b08b05' }}>Productos desactivados o sin stock</h3>
         </div>
         <table className="w-full">
-          <thead style={{ backgroundColor: '#FF8C42' }}>
+          <thead style={{ backgroundColor: '#b08b05' }}>
             <tr>
               <th className="px-6 py-4 text-left text-white">Código</th>
               <th className="px-6 py-4 text-left text-white">Nombre</th>
@@ -315,7 +315,7 @@ fetch('/api/actualizar_producto.php', {
                     <button
                       onClick={() => handleEdit(producto)}
                       className="p-2 rounded-lg transition-all hover:opacity-80"
-                      style={{ backgroundColor: '#FFD166' }}
+                      style={{ backgroundColor: '#c79950' }}
                     >
                       <Edit className="w-4 h-4" />
                     </button>
@@ -337,7 +337,7 @@ fetch('/api/actualizar_producto.php', {
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-2xl p-8 max-w-md w-full">
-            <h3 className="text-2xl mb-6" style={{ color: '#FF8C42' }}>
+            <h3 className="text-2xl mb-6" style={{ color: '#b08b05' }}>
               {editingProduct ? 'Editar Producto' : 'Nuevo Producto'}
             </h3>
 
@@ -409,7 +409,7 @@ fetch('/api/actualizar_producto.php', {
                 <button
                   type="submit"
                   className="flex-1 py-3 rounded-lg text-white"
-                  style={{ backgroundColor: '#FF8C42' }}
+                  style={{ backgroundColor: '#b08b05' }}
                 >
                   {editingProduct ? 'Actualizar' : 'Agregar'}
                 </button>

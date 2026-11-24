@@ -7,17 +7,20 @@ export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState<'admin' | 'cajero' | null>(null);
   const [username, setUsername] = useState('');
+  const [profileImage, setProfileImage] = useState<string | null>(null);
 
-  const handleLogin = (role: 'admin' | 'cajero', user: string) => {
+  const handleLogin = (role: 'admin' | 'cajero', user: string, image: string | null) => {
     setIsLoggedIn(true);
     setUserRole(role);
     setUsername(user);
+    setProfileImage(image);
   };
 
   const handleLogout = () => {
     setIsLoggedIn(false);
     setUserRole(null);
     setUsername('');
+    setProfileImage(null);
   };
 
   if (!isLoggedIn) {
@@ -25,11 +28,11 @@ export default function App() {
   }
 
   if (userRole === 'admin') {
-    return <AdminDashboard username={username} onLogout={handleLogout} />;
+    return <AdminDashboard username={username} initialProfileImage={profileImage} onLogout={handleLogout} />;
   }
 
   if (userRole === 'cajero') {
-    return <CajeroDashboard username={username} onLogout={handleLogout} />;
+    return <CajeroDashboard username={username} initialProfileImage={profileImage} onLogout={handleLogout} />;
   }
 
   return null;

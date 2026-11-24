@@ -8,9 +8,9 @@
   --card-foreground: #1a1a1a;
   --popover: #ffffff;
   --popover-foreground: #1a1a1a;
-  --primary: #FF8C42;
+  --primary: #b08b05;
   --primary-foreground: #ffffff;
-  --secondary: #FFD166;
+  --secondary: #c79950;
   --secondary-foreground: #1a1a1a;
   --muted: #FFF3E0;
   --muted-foreground: #666666;
@@ -24,21 +24,21 @@
   --switch-background: #FFE0B2;
   --font-weight-medium: 500;
   --font-weight-normal: 400;
-  --ring: #FF8C42;
-  --chart-1: #FF8C42;
-  --chart-2: #FFD166;
+  --ring: #b08b05;
+  --chart-1: #b08b05;
+  --chart-2: #c79950;
   --chart-3: #FFAB40;
   --chart-4: #FF6F00;
   --chart-5: #FFA726;
   --radius: 0.625rem;
   --sidebar: #FFF8F0;
   --sidebar-foreground: #1a1a1a;
-  --sidebar-primary: #FF8C42;
+  --sidebar-primary: #b08b05;
   --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #FFF3E0;
   --sidebar-accent-foreground: #1a1a1a;
   --sidebar-border: rgba(255, 140, 66, 0.2);
-  --sidebar-ring: #FF8C42;
+  --sidebar-ring: #b08b05;
 }
 
 .dark {

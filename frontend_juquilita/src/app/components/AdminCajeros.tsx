@@ -12,6 +12,7 @@ interface Cajero {
   activo: boolean;
 }
 
+
 export function AdminCajeros() {
   const [cajeros, setCajeros] = useState<Cajero[]>([]);
   useEffect(() => {
@@ -192,11 +193,11 @@ fetch('/api/crear_cajero.php', {
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-3xl" style={{ color: '#FF8C42' }}>Administrar Cajeros</h2>
+        <h2 className="text-3xl" style={{ color: '#df7839' }}>Administrar Cajeros</h2>
         <button
           onClick={handleAdd}
           className="px-6 py-3 rounded-lg text-white flex items-center gap-2 shadow-lg transition-all hover:opacity-90"
-          style={{ backgroundColor: '#FF8C42' }}
+          style={{ backgroundColor: '#b08b05' }}
         >
           <Plus className="w-5 h-5" />
           Agregar Cajero
@@ -205,7 +206,7 @@ fetch('/api/crear_cajero.php', {
 
       <div className="bg-white rounded-xl shadow-lg overflow-hidden">
         <table className="w-full">
-          <thead style={{ backgroundColor: '#FF8C42' }}>
+          <thead style={{ backgroundColor: '#b08b05' }}>
             <tr>
               <th className="px-6 py-4 text-left text-white">Usuario</th>
               <th className="px-6 py-4 text-left text-white">Nombre</th>
@@ -237,7 +238,7 @@ fetch('/api/crear_cajero.php', {
                     <button
                       onClick={() => handleEdit(cajero)}
                       className="p-2 rounded-lg transition-all hover:opacity-80"
-                      style={{ backgroundColor: '#FFD166' }}
+                      style={{ backgroundColor: '#c79950' }}
                       title="Editar"
                     >
                       <Edit className="w-4 h-4" />
@@ -269,7 +270,7 @@ fetch('/api/crear_cajero.php', {
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-2xl p-8 max-w-md w-full">
-            <h3 className="text-2xl mb-6" style={{ color: '#FF8C42' }}>
+            <h3 className="text-2xl mb-6" style={{ color: '#b08b05' }}>
               {selectedCajero ? 'Editar Cajero' : 'Nuevo Cajero'}
             </h3>
 
@@ -352,7 +353,7 @@ fetch('/api/crear_cajero.php', {
                 <button
                   type="submit"
                   className="flex-1 py-3 rounded-lg text-white"
-                  style={{ backgroundColor: '#FF8C42' }}
+                  style={{ backgroundColor: '#b08b05' }}
                 >
                   {selectedCajero ? 'Actualizar' : 'Crear'}
                 </button>
@@ -374,7 +375,7 @@ fetch('/api/crear_cajero.php', {
       {showPasswordModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-2xl p-8 max-w-md w-full">
-            <h3 className="text-2xl mb-6" style={{ color: '#FF8C42' }}>
+            <h3 className="text-2xl mb-6" style={{ color: '#b08b05' }}>
               Cambiar Contraseña
             </h3>
             <p className="mb-4 text-gray-600">Usuario: {selectedCajero?.nombre}</p>
@@ -396,7 +397,7 @@ fetch('/api/crear_cajero.php', {
                 <button
                   type="submit"
                   className="flex-1 py-3 rounded-lg text-white"
-                  style={{ backgroundColor: '#FF8C42' }}
+                  style={{ backgroundColor: '#b08b05' }}
                 >
                   Cambiar Contraseña
                 </button>

@@ -37,6 +37,7 @@ mysqli_stmt_bind_param(
     $rol
 );
 
+
 mysqli_stmt_execute($stmt);
 $resultado = mysqli_stmt_get_result($stmt);
 
@@ -45,7 +46,8 @@ if (mysqli_num_rows($resultado) > 0) {
     echo json_encode([
         "success" => true,
         "nombre" => $empleado['nombre'],
-        "rol" => $empleado['rol']
+        "rol" => $empleado['rol'],
+        "foto_perfil" => $empleado['foto_perfil']
     ]);
 } else {
     echo json_encode([

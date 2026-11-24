@@ -57,11 +57,11 @@ useEffect(() => {
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-3xl" style={{ color: '#FF8C42' }}>Reportes de Ventas</h2>
+        <h2 className="text-3xl" style={{ color: '#df7839' }}>Reportes de Ventas</h2>
         <button
           onClick={handleExportar}
           className="px-6 py-3 rounded-lg text-white flex items-center gap-2 shadow-lg transition-all hover:opacity-90"
-          style={{ backgroundColor: '#FF8C42' }}
+          style={{ backgroundColor: '#b08b05' }}
         >
           <Download className="w-5 h-5" />
           Exportar Reporte
@@ -70,7 +70,7 @@ useEffect(() => {
 
       {/* Filtros de fecha */}
       <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
-        <h3 className="text-xl mb-4" style={{ color: '#FF8C42' }}>Período de Consulta</h3>
+        <h3 className="text-xl mb-4" style={{ color: '#b08b05' }}>Período de Consulta</h3>
         <div className="flex gap-4 items-end">
           <div className="flex-1">
             <label className="block text-sm mb-2">Fecha Inicio</label>
@@ -103,7 +103,7 @@ useEffect(() => {
            <button
                 onClick={consultarReportes}
                 className="px-8 py-3 rounded-lg text-white"
-                style={{ backgroundColor: '#FF8C42' }}
+                style={{ backgroundColor: '#b08b05' }}
                 >
                  Consultar
             </button>
@@ -115,9 +115,9 @@ useEffect(() => {
         <div className="bg-white rounded-xl shadow-lg p-6">
           <div className="flex items-center justify-between mb-2">
             <h4 className="text-sm text-gray-600">Total Ventas</h4>
-            <TrendingUp className="w-5 h-5" style={{ color: '#FF8C42' }} />
+            <TrendingUp className="w-5 h-5" style={{ color: '#b08b05' }} />
           </div>
-          <p className="text-3xl" style={{ color: '#FF8C42' }}>
+          <p className="text-3xl" style={{ color: '#b08b05' }}>
             ${estadisticas.totalVentas.toLocaleString()}
           </p>
         </div>
@@ -125,9 +125,9 @@ useEffect(() => {
         <div className="bg-white rounded-xl shadow-lg p-6">
           <div className="flex items-center justify-between mb-2">
             <h4 className="text-sm text-gray-600">Ventas Hoy</h4>
-            <TrendingUp className="w-5 h-5" style={{ color: '#FFD166' }} />
+            <TrendingUp className="w-5 h-5" style={{ color: '#c79950' }} />
           </div>
-          <p className="text-3xl" style={{ color: '#FFD166' }}>
+          <p className="text-3xl" style={{ color: '#c79950' }}>
             ${estadisticas.ventasHoy.toLocaleString()}
           </p>
         </div>
@@ -155,7 +155,7 @@ useEffect(() => {
 
       {/* Gráfica */}
       <div className="bg-white rounded-xl shadow-lg p-6">
-        <h3 className="text-xl mb-6" style={{ color: '#FF8C42' }}>Ventas por Día</h3>
+        <h3 className="text-xl mb-6" style={{ color: '#b08b05' }}>Ventas por Día</h3>
         <ResponsiveContainer width="100%" height={400}>
           <BarChart data={ventasPorDia}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -163,7 +163,7 @@ useEffect(() => {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="total" fill="#FF8C42" name="Ventas ($)" />
+            <Bar dataKey="total" fill="#b08b05" name="Ventas ($)" />
           </BarChart>
         </ResponsiveContainer>
       </div>

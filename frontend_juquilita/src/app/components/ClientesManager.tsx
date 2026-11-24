@@ -73,7 +73,6 @@ const handleSubmit = (e: React.FormEvent) => {
 
       setShowModal(false);
       setEditingCliente(null);
-
       setFormData({
         nombre: '',
         tipo: 'GENERAL',
@@ -87,15 +86,10 @@ const handleSubmit = (e: React.FormEvent) => {
         .then(clientesActualizados => {
 
           setClientes(clientesActualizados);
-
         });
-
     } else {
-
       alert('Error al agregar cliente');
-
     }
-
   })
   .catch(error => {
     console.error(error);
@@ -104,17 +98,13 @@ const handleSubmit = (e: React.FormEvent) => {
 };
 
 const handleDelete = (id: number) => {
-
   const confirmar = confirm(
     '¿Eliminar este cliente?'
   );
 
   if (!confirmar) return;
-
   const form = new FormData();
-
   form.append('id', id.toString());
-
   fetch(
     '/api/eliminar_cliente.php',
     {
@@ -124,9 +114,7 @@ const handleDelete = (id: number) => {
   )
   .then(response => response.json())
   .then(data => {
-
     console.log(data);
-
     if (data.success) {
 
       alert('Cliente eliminado');
@@ -136,26 +124,21 @@ const handleDelete = (id: number) => {
         .then(clientesActualizados => {
 
           setClientes(clientesActualizados);
-
         });
-
     } else {
-
       alert('Error al eliminar');
-
     }
 
   })
   .catch(error => {
     console.error(error);
   });
-
 };
 
   return (
   <div>
     <div className="flex justify-between items-center mb-6">
-      <h2 className="text-3xl" style={{ color: '#FF8C42' }}>
+      <h2 className="text-3xl" style={{ color: '#df7839' }}>
         Clientes
       </h2>
 
@@ -174,7 +157,7 @@ const handleDelete = (id: number) => {
           setShowModal(true);
         }}
         className="px-6 py-3 rounded-lg text-white flex items-center gap-2 shadow-lg transition-all hover:opacity-90"
-        style={{ backgroundColor: '#FF8C42' }}
+        style={{ backgroundColor: '#b08b05' }}
       >
         <Plus className="w-5 h-5" />
         Agregar Cliente
@@ -183,7 +166,7 @@ const handleDelete = (id: number) => {
 
     <div className="bg-white rounded-xl shadow-lg overflow-hidden">
       <table className="w-full">
-        <thead style={{ backgroundColor: '#FF8C42' }}>
+        <thead style={{ backgroundColor: '#b08b05' }}>
           <tr>
             <th className="px-6 py-4 text-left text-white">Nombre</th>
             <th className="px-6 py-4 text-left text-white">Tipo</th>
@@ -224,7 +207,7 @@ const handleDelete = (id: number) => {
                       setShowModal(true);
                     }}
                     className="p-2 rounded-lg transition-all hover:opacity-80"
-                    style={{ backgroundColor: '#FFD166' }}
+                    style={{ backgroundColor: '#c79950' }}
                   >
                     <Edit className="w-4 h-4" />
                   </button>
@@ -248,7 +231,7 @@ const handleDelete = (id: number) => {
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
         <div className="bg-white rounded-2xl p-8 max-w-md w-full">
 
-          <h3 className="text-2xl mb-6" style={{ color: '#FF8C42' }}>
+          <h3 className="text-2xl mb-6" style={{ color: '#b08b05' }}>
             {editingCliente ? 'Editar Cliente' : 'Nuevo Cliente'}
           </h3>
 
@@ -346,7 +329,7 @@ const handleDelete = (id: number) => {
               <button
                 type="submit"
                 className="flex-1 py-3 rounded-lg text-white"
-                style={{ backgroundColor: '#FF8C42' }}
+                style={{ backgroundColor: '#b08b05' }}
               >
                 {editingCliente ? 'Actualizar' : 'Guardar'}
               </button>

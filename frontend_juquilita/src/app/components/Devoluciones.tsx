@@ -106,11 +106,11 @@ useEffect(() => {
 
   return (
     <div>
-      <h2 className="text-3xl mb-6" style={{ color: '#FF8C42' }}>Devoluciones y Cambios</h2>
+      <h2 className="text-3xl mb-6" style={{ color: '#df7839' }}>Devoluciones y Cambios</h2>
 
       {/* Buscar venta */}
       <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
-        <h3 className="text-xl mb-4" style={{ color: '#FFD166' }}>Buscar Venta</h3>
+        <h3 className="text-xl mb-4" style={{ color: '#c79950' }}>Buscar Venta</h3>
 
         <div className="flex gap-3">
           <div className="relative flex-1">
@@ -127,7 +127,7 @@ useEffect(() => {
           <button
             onClick={buscarVenta}
             className="px-8 py-3 rounded-lg text-white"
-            style={{ backgroundColor: '#FF8C42' }}
+            style={{ backgroundColor: '#b08b05' }}
           >
             Buscar
           </button>
@@ -137,7 +137,7 @@ useEffect(() => {
       {/* Formulario de devolución/cambio */}
       {showForm && (
         <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
-          <h3 className="text-xl mb-4" style={{ color: '#FFD166' }}>
+          <h3 className="text-xl mb-4" style={{ color: '#c79950' }}>
             Registrar Devolución/Cambio
           </h3>
 
@@ -229,7 +229,7 @@ useEffect(() => {
               <button
                 type="submit"
                 className="flex-1 py-3 rounded-lg text-white flex items-center justify-center gap-2"
-                style={{ backgroundColor: '#FF8C42' }}
+                style={{ backgroundColor: '#b08b05' }}
               >
                 <CheckCircle className="w-5 h-5" />
                 Registrar {formData.tipo === 'devolucion' ? 'Devolución' : 'Cambio'}
@@ -252,7 +252,7 @@ useEffect(() => {
 
       {/* Historial */}
       <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-        <div className="px-6 py-4" style={{ backgroundColor: '#FFD166' }}>
+        <div className="px-6 py-4" style={{ backgroundColor: '#c79950' }}>
           <h3 className="text-xl text-gray-800">Historial Reciente</h3>
         </div>
 

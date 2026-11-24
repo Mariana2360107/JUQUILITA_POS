@@ -135,18 +135,14 @@ const agregarAlCarrito = () => {
   return (
   <div>
     <h2
-      className="text-3xl mb-6"
-      style={{ color: '#FF8C42' }}
-    >
-      Registrar Venta
-    </h2>
+      className="text-3xl mb-6" style={{ color: '#df7839' }}>Registrar Venta</h2>
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
       {/* Productos */}
       <div className="lg:col-span-2 bg-white rounded-xl shadow-lg p-6">
         <h3
           className="text-xl mb-4"
-          style={{ color: '#FFD166' }}
+          style={{ color: '#c79950' }}
         >
           Agregar Productos
         </h3>
@@ -190,7 +186,7 @@ const agregarAlCarrito = () => {
                   </div>
                   <p
                     className="font-medium"
-                    style={{ color: '#FF8C42' }}
+                    style={{ color: '#b08b05' }}
                   >
                     ${producto.precio.toFixed(2)}
                   </p>
@@ -205,7 +201,7 @@ const agregarAlCarrito = () => {
           <div
             className="p-4 rounded-lg border-2 mb-4"
             style={{
-              borderColor: '#FFD166',
+              borderColor: '#c79950',
               backgroundColor: '#FFFBF5'     }}
           >
             <h4 className="font-medium mb-3">
@@ -240,7 +236,7 @@ const agregarAlCarrito = () => {
                 type="button"
                 onClick={agregarAlCarrito}
                 className="px-6 py-2 rounded-lg text-white flex items-center gap-2"
-                style={{ backgroundColor: '#FF8C42' }}
+                style={{ backgroundColor: '#b08b05' }}
               >
                 <Plus className="w-4 h-4" />
                 Agregar
@@ -253,7 +249,7 @@ const agregarAlCarrito = () => {
         <div className="mt-6">
           <h4
             className="text-lg mb-3"
-            style={{ color: '#FF8C42' }}
+            style={{ color: '#b08b05' }}
           >
             Carrito de Compra
           </h4>
@@ -284,7 +280,7 @@ const agregarAlCarrito = () => {
                   <div className="flex items-center gap-4">
                     <p
                       className="font-medium"
-                      style={{ color: '#FF8C42' }}
+                      style={{ color: '#b08b05' }}
                     >
                       ${item.subtotal.toFixed(2)}
                     </p>
@@ -308,7 +304,7 @@ const agregarAlCarrito = () => {
       <div className="bg-white rounded-xl shadow-lg p-6 h-fit sticky top-8">
         <h3
           className="text-xl mb-4"
-          style={{ color: '#FFD166' }}
+          style={{ color: '#c79950' }}
         >
           Resumen de Venta
         </h3>
@@ -333,7 +329,7 @@ const agregarAlCarrito = () => {
             </span>
             <span
               className="font-bold"
-              style={{ color: '#FF8C42' }}
+              style={{ color: '#b08b05' }}
             >
               ${total.toFixed(2)}
             </span>
@@ -345,7 +341,7 @@ const agregarAlCarrito = () => {
           onClick={finalizarVenta}
           disabled={carrito.length === 0}
           className="w-full py-3 rounded-lg text-white flex items-center justify-center gap-2 transition-all disabled:opacity-50"
-          style={{ backgroundColor: '#FF8C42' }}
+          style={{ backgroundColor: '#b08b05' }}
         >
           <ShoppingCart className="w-5 h-5" />
           Finalizar Venta

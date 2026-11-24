@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { LogIn, User, ShieldCheck } from 'lucide-react';
 
 interface LoginProps {
-  onLogin: (role: 'admin' | 'cajero', username: string) => void;}
+  onLogin: (role: 'admin' | 'cajero', username: string, profileImage: string | null) => void;}
 
 export function Login({ onLogin }: LoginProps) {
   const [selectedRole, setSelectedRole] = useState<'admin' | 'cajero' | null>(null);
@@ -32,7 +32,8 @@ const response = await fetch('/api/login.php', {
   if (data.success) {
     onLogin(
   selectedRole!,
-  data.nombre);
+  data.nombre,
+  data.foto_perfil ?? null);
   } else {
     setError(data.message);}
 } catch (error) {
@@ -43,7 +44,7 @@ const response = await fetch('/api/login.php', {
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#FFF8F0] to-[#FFE0B2] p-4">
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
-            <h1 className="text-4xl mb-2" style={{ color: '#FF8C42' }}>Juquilita</h1>
+            <h1 className="text-4xl mb-2" style={{ color: '#b08b05' }}>Juquilita</h1>
             <p className="text-gray-600">Sistema de Punto de Ventas</p>
           </div>
 
@@ -55,16 +56,16 @@ const response = await fetch('/api/login.php', {
                 onClick={() => setSelectedRole('admin')}
                 className="w-full p-6 rounded-xl border-2 transition-all hover:scale-105"
                 style={{
-                  borderColor: '#FF8C42',
+                  borderColor: '#b08b05',
                   backgroundColor: '#FFF8F0'
                 }}
               >
                 <div className="flex items-center gap-4">
-                  <div className="p-3 rounded-full" style={{ backgroundColor: '#FF8C42' }}>
+                  <div className="p-3 rounded-full" style={{ backgroundColor: '#b08b05' }}>
                     <ShieldCheck className="w-8 h-8 text-white" />
                   </div>
                   <div className="text-left flex-1">
-                    <h3 className="text-xl mb-1" style={{ color: '#FF8C42' }}>Administrador</h3>
+                    <h3 className="text-xl mb-1" style={{ color: '#b08b05' }}>Administrador</h3>
                     <p className="text-sm text-gray-600">Acceso completo al sistema</p>
                   </div>
                 </div>
@@ -74,16 +75,16 @@ const response = await fetch('/api/login.php', {
                 onClick={() => setSelectedRole('cajero')}
                 className="w-full p-6 rounded-xl border-2 transition-all hover:scale-105"
                 style={{
-                  borderColor: '#FFD166',
+                  borderColor: '#c79950',
                   backgroundColor: '#FFFBF5'
                 }}
               >
                 <div className="flex items-center gap-4">
-                  <div className="p-3 rounded-full" style={{ backgroundColor: '#FFD166' }}>
+                  <div className="p-3 rounded-full" style={{ backgroundColor: '#c79950' }}>
                     <User className="w-8 h-8 text-gray-800" />
                   </div>
                   <div className="text-left flex-1">
-                    <h3 className="text-xl mb-1" style={{ color: '#FF8C42' }}>Cajero</h3>
+                    <h3 className="text-xl mb-1" style={{ color: '#b08b05' }}>Cajero</h3>
                     <p className="text-sm text-gray-600">Registro de ventas</p>
                   </div>
                 </div>
@@ -99,9 +100,10 @@ const response = await fetch('/api/login.php', {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#FFF8F0] to-[#FFE0B2] p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-4xl mb-2" style={{ color: '#FF8C42' }}>Juquilita</h1>
+          <h1 className="text-4xl mb-2" style={{ color: '#b08b05' }}>Juquilita</h1>
           <p className="text-gray-600">Iniciar sesión como {selectedRole === 'admin' ? 'Administrador' : 'Cajero'}</p>
         </div>
+
 
         <div className="bg-white rounded-2xl shadow-xl p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -146,7 +148,7 @@ const response = await fetch('/api/login.php', {
             <button
               type="submit"
               className="w-full py-3 rounded-lg text-white flex items-center justify-center gap-2 transition-all hover:opacity-90"
-              style={{ backgroundColor: '#FF8C42' }}
+              style={{ backgroundColor: '#b08b05' }}
             >
               <LogIn className="w-5 h-5" />
               Iniciar Sesión
